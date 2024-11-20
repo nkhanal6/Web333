@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Project</title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<%- include('partials/navbar', { page: '' }) %>
+<main class="container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto">
+        <div class="bg-white shadow-lg rounded-lg p-6">
+            <h1 class="text-3xl font-bold text-gray-800 mb-8">Edit Project: <%= project.title %></h1>
+
+            <form action="/solutions/editProject" method="POST" class="space-y-6">
+                <input type="hidden" name="id" value="<%= project.id %>">
+
+                <!-- Title -->
+                <div>
+                    <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
+                    <input type="text" id="title" name="title" value="<%= project.title %>" required
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                </div>
+
+                <!-- Feature Image URL -->
+                <div>
+                    <label for="feature_img_url" class="block text-sm font-medium text-gray-700">Feature Image URL</label>
+                    <input type="url" id="feature_img_url" name="feature_img_url" value="<%= project.feature_img_url %>" required
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                </div>
+
+                <!-- Sector -->
+                <div>
+                    <label for="sector_id" class="block text-sm font-medium text-gray-700">Sector</label>
+                    <select id="sector_id" name="sector_id" required
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        <% sectors.forEach(sector => { %>
+                            <option value="<%= sector.id %>" <%= (project.sector_id == sector.id) ? 'selected' : '' %>>
+                                <%= sector.sector_name %>
+                            </option>
+                        <% }) %>
+                    </select>
+                </div>
+
+                <!-- Short Intro -->
+                <div>
+                    <label for="intro_short" class="block text-sm font-medium text-gray-700">Short Introduction</label>
+                    <textarea id="intro_short" name="intro_short" rows="3" required
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"><%= project.intro_short %></textarea>
+                </div>
+
+                <!-- Short Summary -->
+                <div>
+                    <label for="summary_short" class="block text-sm font-medium text-gray-700">Short Summary</label>
+                    <textarea id="summary_short" name="summary_short" rows="3" required
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"><%= project.summary_short %></textarea>
+                </div>
+
+                <!-- Impact -->
+                <div>
+                    <label for="impact" class="block text-sm font-medium text-gray-700">Impact</label>
+                    <textarea id="impact" name="impact" rows="4" required
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"><%= project.impact %></textarea>
+                </div>
+
+                <!-- Original Source URL -->
+                <div>
+                    <label for="original_source_url" class="block text-sm font-medium text-gray-700">Original Source URL</label>
+                    <input type="url" id="original_source_url" name="original_source_url" value="<%= project.original_source_url %>" required
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                </div>
+
+                <!-- Submit and Delete Buttons -->
+                <div class="flex justify-between items-center">
+                    <button type="submit" 
+                        class="px-4 py-2 rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                        Update Project
+                    </button>
+                    <a href="/solutions/deleteProject/<%= project.id %>" 
+                        class="px-4 py-2 rounded-md text-white bg-red-600 hover:bg-red-700">
+                        Delete Project
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
